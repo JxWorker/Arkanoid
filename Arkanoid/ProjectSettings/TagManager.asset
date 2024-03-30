@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - Deathpit
+  - Playarea
+  - Ball
+  - Paddle
+  - Tile
+  - Tile_Stone
+  - Wall_Top
   layers:
   - Default
   - TransparentFX
