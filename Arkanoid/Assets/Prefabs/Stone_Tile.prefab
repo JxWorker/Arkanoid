@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2235797167598976802
+--- !u!1 &3934694399341705759
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4074907780611700029}
-  - component: {fileID: 5033228501416562577}
-  - component: {fileID: 8918742044125811450}
-  - component: {fileID: 4526203481504398489}
-  - component: {fileID: 152628633552159892}
+  - component: {fileID: 9032899020760936969}
+  - component: {fileID: 8118486884181401350}
+  - component: {fileID: 1936222690970737839}
+  - component: {fileID: 4617777390615717881}
+  - component: {fileID: 1510991393255974275}
   m_Layer: 0
-  m_Name: Paddle
-  m_TagString: Paddle
+  m_Name: Stone_Tile
+  m_TagString: Tile_Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4074907780611700029
+--- !u!4 &9032899020760936969
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2235797167598976802}
+  m_GameObject: {fileID: 3934694399341705759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5033228501416562577
+--- !u!33 &8118486884181401350
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2235797167598976802}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8918742044125811450
+  m_GameObject: {fileID: 3934694399341705759}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1936222690970737839
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2235797167598976802}
+  m_GameObject: {fileID: 3934694399341705759}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c21a020d2555fec4aa9ffb5c5c89f313, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,13 +85,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4526203481504398489
+--- !u!65 &4617777390615717881
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2235797167598976802}
+  m_GameObject: {fileID: 3934694399341705759}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -100,23 +100,37 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &152628633552159892
+--- !u!114 &1510991393255974275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2235797167598976802}
+  m_GameObject: {fileID: 3934694399341705759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72eb1db621f69c40bcd919b39257b95, type: 3}
+  m_Script: {fileID: 11500000, guid: b3975818569a94148916470ba2877a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  playArea: {fileID: 4241099722236146101, guid: 1175dc09f60d4d94dbd1fe64cf671da5, type: 3}
+  hasPowerUp: 0
+  isStoneTile: 1
+  powerUps:
+  - {fileID: 336202897935361171, guid: 3148924fa7b9fa24f8daa8be768aadb4, type: 3}
+  - {fileID: 1846672258922439295, guid: f27f86bb3a6f87f4b89020520b77fb6f, type: 3}
+  - {fileID: 7882189505558638311, guid: 3ad01ee9e59db1e44b6ac96e5e81df93, type: 3}
+  colors:
+  - {fileID: 2100000, guid: 1f8ce28c0acae064f8887ef3da6023d9, type: 2}
+  - {fileID: 2100000, guid: b175943eeb0876045b31f9f3dd7229bd, type: 2}
+  - {fileID: 2100000, guid: 28bb7e19956fa394ab99eb44d0f09ef6, type: 2}
+  - {fileID: 2100000, guid: edc2ffdfdf531d24dbdfdff6b41cafe7, type: 2}
+  - {fileID: 2100000, guid: 90a742c3f6f19e846a31c28e27cd5d26, type: 2}
+  stoneSteps:
+  - {fileID: 2100000, guid: ebca30643c8b49b40a755150b20b96d3, type: 2}
+  - {fileID: 2100000, guid: 74ceabe005ceb4c4696131e52ae191a8, type: 2}
+  - {fileID: 2100000, guid: de79df3ae9654fd49991803dd3eaee7c, type: 2}
