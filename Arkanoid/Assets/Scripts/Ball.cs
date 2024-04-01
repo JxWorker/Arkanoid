@@ -1,26 +1,21 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Schema;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Ball : MonoBehaviour
 {
     public float xMax;
     public float yMax;
-    public GameObject Paddle;
 
+    public bool StickToPaddle { get; set; }
+    public Vector3 StartPosition { get; set; }
+    
     private Vector3 _velocity;
-    private bool _stickToPaddle;
-    private Vector3 _startPosition;
     private GameObject _gameManager;
     // Start is called before the first frame update
     void Start()
     {
         _velocity = new Vector3(0, yMax, 0);
-        _startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        _stickToPaddle = true;
+        StartPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        StickToPaddle = true;
         
         _gameManager = GameObject.Find("GameManager_Canvas");
     }
@@ -30,18 +25,12 @@ public class Ball : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            _stickToPaddle = false;
+            StickToPaddle = false;
             transform.Translate(Time.deltaTime * _velocity);
         }
-        else if (!_stickToPaddle)
+        else if (!StickToPaddle)
         {
             transform.Translate(Time.deltaTime * _velocity);
-        }
-        else if (_stickToPaddle)
-        {
-            //TODO: The ball doesn't move with the paddle
-            transform.position = new Vector3(Paddle.transform.position.x, _startPosition.y,
-                Paddle.transform.position.z);
         }
     }
 
@@ -67,8 +56,8 @@ public class Ball : MonoBehaviour
                 break;
             case "Deathpit":
                 _gameManager.GetComponent<GameManager>().Lives -= 1;
-                transform.position = _startPosition;
-                _stickToPaddle = true;
+                transform.position = StartPosition;
+                StickToPaddle = true;
                 break;
             case "Tile":
                 maxDistance = other.transform.localScale.x * 0.5f + transform.localScale.x * 0.5f;
@@ -82,8 +71,6 @@ public class Ball : MonoBehaviour
                 normalizedDistance = distance / maxDistance;
                 _velocity = new Vector3(normalizedDistance * xMax, -_velocity.y, _velocity.z);
                 break;
-            // case :
-            //     break;
         }
     }
 }
