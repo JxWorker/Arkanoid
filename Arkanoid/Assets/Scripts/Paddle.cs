@@ -7,17 +7,10 @@ public class Paddle : MonoBehaviour
     public GameObject playArea;
     public GameObject ball;
 
-    private bool isTimerRunning = false;
-    private float timeRemaining;
+    private bool _isTimerRunning = false;
+    private float _timeRemaining = 0;
     public string CurrentPowerUp { get; set; } = "";
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         float boader = playArea.transform.localScale.x * 10 * 0.5f - transform.localScale.x;
@@ -26,31 +19,34 @@ public class Paddle : MonoBehaviour
         float xClamped = Mathf.Clamp(xNew, -boader, boader);
         transform.position = new Vector3(xClamped, transform.position.y, transform.position.z);
 
-        if (ball.GetComponent<Ball>().StickToPaddle /*&& ball.GetComponent<Ball>().StartPosition.y == ball.transform.position.y*/)
+        if (CurrentPowerUp.Equals("PowerUp_Sticky-Paddle") &&
+            (Convert.ToInt32(ball.GetComponent<Ball>().StartPosition.y) ==
+             Convert.ToInt32(ball.transform.position.y)) &&
+            (Convert.ToInt32(ball.transform.position.x) == Convert.ToInt32(transform.position.x) ||
+             Convert.ToInt32(ball.transform.position.x) == Convert.ToInt32(transform.position.x + 1) ||
+             Convert.ToInt32(ball.transform.position.x) == Convert.ToInt32(transform.position.x - 1)))
+        {
+            ball.GetComponent<Ball>().StickToPaddle = true;
+            CurrentPowerUp = "";
+        }
+
+        if (ball.GetComponent<Ball>().StickToPaddle)
         {
             ball.transform.position = new Vector3(xClamped, ball.GetComponent<Ball>().StartPosition.y,
                 ball.GetComponent<Ball>().StartPosition.z);
         }
 
-        if (isTimerRunning)
+        if (_isTimerRunning)
         {
-            if (timeRemaining > 0)
+            if (_timeRemaining > 0)
             {
-                timeRemaining -= Time.deltaTime;
+                _timeRemaining -= Time.deltaTime;
             }
             else
             {
-                switch (CurrentPowerUp)
-                {
-                    case "PowerUp_Longer-Paddle":
-                        CurrentPowerUp = "";
-                        PowerUpLongPaddle();
-                        break;
-                    case "PowerUp_Speed-Up-Paddle":
-                        CurrentPowerUp = "";
-                        PowerUpSpeedUpPaddle();
-                        break;
-                }
+                CurrentPowerUp = "";
+                PowerUpLongPaddle();
+                PowerUpSpeedUpPaddle();
             }
         }
     }
@@ -61,56 +57,67 @@ public class Paddle : MonoBehaviour
         {
             if (other.gameObject.name.Contains("PowerUp_LongPaddle"))
             {
-                CurrentPowerUp = "PowerUp_Longer-Paddle";
                 PowerUpLongPaddle();
             }
             else if (other.gameObject.name.Contains("PowerUp_SpeedUpPaddle"))
             {
-                CurrentPowerUp = "PowerUp_Speed-Up-Paddle";
                 PowerUpSpeedUpPaddle();
             }
             else if (other.gameObject.name.Contains("PowerUp_StickyPaddle"))
             {
                 CurrentPowerUp = "PowerUp_Sticky-Paddle";
-                PowerUpStickyPaddle();
+                _timeRemaining = 0;
             }
-            
+
             Destroy(other.gameObject);
         }
     }
 
     private void PowerUpLongPaddle()
     {
-        if (isTimerRunning)
+        if (CurrentPowerUp.Equals("PowerUp_Longer-Paddle"))
         {
-            transform.localScale = new Vector3(1,1,1);
-            isTimerRunning = false;
+            _timeRemaining += 15;
+            return;
+        }
+
+        CurrentPowerUp = "PowerUp_Longer-Paddle";
+        _timeRemaining = 0;
+
+        if (_isTimerRunning)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            _isTimerRunning = false;
         }
         else
         {
-            timeRemaining = 60;
-            transform.localScale = new Vector3(1,2,1);
-            isTimerRunning = true;
+            _timeRemaining = 15;
+            transform.localScale = new Vector3(1, 2, 1);
+            _isTimerRunning = true;
         }
-    }
-
-    private void PowerUpStickyPaddle()
-    {
-        ball.GetComponent<Ball>().StickToPaddle = true;
     }
 
     private void PowerUpSpeedUpPaddle()
     {
-        if (isTimerRunning)
+        if (CurrentPowerUp.Equals("PowerUp_Speed-Up-Paddle"))
+        {
+            _timeRemaining += 15;
+            return;
+        }
+
+        CurrentPowerUp = "PowerUp_Speed-Up-Paddle";
+        _timeRemaining = 0;
+
+        if (_isTimerRunning)
         {
             speed = 5;
-            isTimerRunning = false;
+            _isTimerRunning = false;
         }
         else
         {
-            timeRemaining = 60;
+            _timeRemaining = 15;
             speed = 10;
-            isTimerRunning = true;
+            _isTimerRunning = true;
         }
     }
 }

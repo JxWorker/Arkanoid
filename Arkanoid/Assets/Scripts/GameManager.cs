@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,16 +16,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject paddle;
     
-    public GameObject playArea;
-    public GameObject tile1By1;
-    public GameObject tile1By2;
-    public GameObject tileStone;
-    
     public int Score { get; set; }
-
     public int Lives { get; set; } = 3;
 
-    // Start is called before the first frame update
     void Start()
     {
         gameEndScreen.enabled = false;
@@ -37,7 +29,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         highScoreNumber_InGame.text = string.Format("{0:N}", Score.ToString());
@@ -102,15 +93,4 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-
-    // private void GenerateTiles()
-    // {
-    //     Vector2 area = new Vector2(playArea.transform.localScale.x * 10, playArea.transform.localScale.z * 10 * 0.6f);
-    //     Vector2 size1By1 = new Vector2(tile1By1.transform.localScale.x, tile1By1.transform.localScale.y);
-    //     Vector2 size1By2 = new Vector2(tile1By2.transform.localScale.x, tile1By2.transform.localScale.y);
-    //     float spacer = 0.5f;
-    //     int maxTilesInRow = 6;
-    //     int maxTilesInCollumn = 7;
-    //     
-    // }
 }

@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
     
     private Vector3 _velocity;
     private GameObject _gameManager;
-    // Start is called before the first frame update
+    
     void Start()
     {
         _velocity = new Vector3(0, yMax, 0);
@@ -20,7 +20,6 @@ public class Ball : MonoBehaviour
         _gameManager = GameObject.Find("GameManager_Canvas");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Space))
