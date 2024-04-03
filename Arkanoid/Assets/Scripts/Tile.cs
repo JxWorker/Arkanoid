@@ -11,7 +11,6 @@ public class Tile : MonoBehaviour
     private GameObject _gameManager;
     private int lives;
 
-    // Start is called before the first frame update
     void Start()
     {
         _gameManager = GameObject.Find("GameManager_Canvas");

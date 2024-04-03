@@ -72,18 +72,25 @@ public class GameManager : MonoBehaviour
                 healthBallImages[2].sprite = healthBallSprites[0];
                 break;
             case 0:
-                healthBallImages[0].enabled = false;
-                healthBallImages[1].enabled = false;
-                healthBallImages[2].enabled = false;
-                break;
-            case -1:
                 highScoreNumber_GameEnd.text = string.Format("{0:N}", Score.ToString());
                 titleGameEndScreen.text = "Game Over";
                 gameEndScreen.enabled = true;
                 break;
         }
+
+        if (AllTilesDestroyed())
+        {
+            highScoreNumber_GameEnd.text = string.Format("{0:N}", Score.ToString());
+            titleGameEndScreen.text = "You Won!";
+            gameEndScreen.enabled = true;
+        }
     }
 
+    private bool AllTilesDestroyed()
+    {
+        return 0 == GameObject.FindGameObjectsWithTag("Tile").Length + GameObject.FindGameObjectsWithTag("Tile_Stone").Length;
+    }
+    
     public void RestartGame()
     {
         SceneManager.LoadScene("Scenes/GameScene");
