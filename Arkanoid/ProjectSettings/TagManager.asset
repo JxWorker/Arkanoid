@@ -12,6 +12,7 @@ TagManager:
   - Tile
   - Tile_Stone
   - Wall_Top
+  - PowerUp
   layers:
   - Default
   - TransparentFX

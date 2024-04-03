@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI highScoreNumber_GameEnd;
     public Canvas gameEndScreen;
     public TextMeshProUGUI titleGameEndScreen;
+    public Sprite[] powerUpList = new Sprite[3];
+    public Image currentPowerUp;
 
+    public GameObject paddle;
+    
+    public GameObject playArea;
+    public GameObject tile1By1;
+    public GameObject tile1By2;
+    public GameObject tileStone;
+    
     public int Score { get; set; }
 
     public int Lives { get; set; } = 3;
@@ -31,6 +41,25 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         highScoreNumber_InGame.text = string.Format("{0:N}", Score.ToString());
+
+        switch (paddle.GetComponent<Paddle>().CurrentPowerUp)
+        {
+            case "":
+                currentPowerUp.enabled = false;
+                break;
+            case "PowerUp_Longer-Paddle":
+                currentPowerUp.enabled = true;
+                currentPowerUp.sprite = powerUpList[0];
+                break;
+            case "PowerUp_Speed-Up-Paddle":
+                currentPowerUp.enabled = true;
+                currentPowerUp.sprite = powerUpList[1];
+                break;
+            case "PowerUp_Sticky-Paddle":
+                currentPowerUp.enabled = true;
+                currentPowerUp.sprite = powerUpList[2];
+                break;
+        }
 
         switch (Lives)
         {
@@ -52,6 +81,11 @@ public class GameManager : MonoBehaviour
                 healthBallImages[2].sprite = healthBallSprites[0];
                 break;
             case 0:
+                healthBallImages[0].enabled = false;
+                healthBallImages[1].enabled = false;
+                healthBallImages[2].enabled = false;
+                break;
+            case -1:
                 highScoreNumber_GameEnd.text = string.Format("{0:N}", Score.ToString());
                 titleGameEndScreen.text = "Game Over";
                 gameEndScreen.enabled = true;
@@ -68,4 +102,15 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    // private void GenerateTiles()
+    // {
+    //     Vector2 area = new Vector2(playArea.transform.localScale.x * 10, playArea.transform.localScale.z * 10 * 0.6f);
+    //     Vector2 size1By1 = new Vector2(tile1By1.transform.localScale.x, tile1By1.transform.localScale.y);
+    //     Vector2 size1By2 = new Vector2(tile1By2.transform.localScale.x, tile1By2.transform.localScale.y);
+    //     float spacer = 0.5f;
+    //     int maxTilesInRow = 6;
+    //     int maxTilesInCollumn = 7;
+    //     
+    // }
 }
