@@ -9,7 +9,6 @@ public class Paddle : MonoBehaviour
 
     private bool _isTimerRunning = false;
     private float _timeRemaining = 0;
-    // private bool changePowerUp = false;
     public string CurrentPowerUp { get; set; } = "";
 
     void Update()
@@ -83,18 +82,9 @@ public class Paddle : MonoBehaviour
         ResetPowerUps();
 
         CurrentPowerUp = "PowerUp_Longer-Paddle";
-
-        // if (_isTimerRunning)
-        // {
-        //     transform.localScale = new Vector3(1, 1, 1);
-        //     _isTimerRunning = false;
-        // }
-        // else
-        // {
-            _timeRemaining = 15;
-            transform.localScale = new Vector3(1, 2, 1);
-            _isTimerRunning = true;
-        // }
+        _timeRemaining = 15;
+        transform.localScale = new Vector3(1, 2, 1);
+        _isTimerRunning = true;
     }
 
     private void PowerUpSpeedUpPaddle()
@@ -108,18 +98,9 @@ public class Paddle : MonoBehaviour
         ResetPowerUps();
 
         CurrentPowerUp = "PowerUp_Speed-Up-Paddle";
-
-        // if (_isTimerRunning)
-        // {
-        //     speed = 5;
-        //     _isTimerRunning = false;
-        // }
-        // else
-        // {
-            _timeRemaining = 15;
-            speed = 10;
-            _isTimerRunning = true;
-        // }
+        _timeRemaining = 15;
+        speed = 10;
+        _isTimerRunning = true;
     }
 
     private void ResetPowerUps()
