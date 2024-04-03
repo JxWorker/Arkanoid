@@ -9,6 +9,7 @@ public class Paddle : MonoBehaviour
 
     private bool _isTimerRunning = false;
     private float _timeRemaining = 0;
+    // private bool changePowerUp = false;
     public string CurrentPowerUp { get; set; } = "";
 
     void Update()
@@ -18,6 +19,18 @@ public class Paddle : MonoBehaviour
         float xNew = transform.position.x + direction * speed * Time.deltaTime;
         float xClamped = Mathf.Clamp(xNew, -boader, boader);
         transform.position = new Vector3(xClamped, transform.position.y, transform.position.z);
+
+        if (_isTimerRunning)
+        {
+            if (_timeRemaining > 0)
+            {
+                _timeRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                ResetPowerUps();
+            }
+        }
 
         if (CurrentPowerUp.Equals("PowerUp_Sticky-Paddle") &&
             (Convert.ToInt32(ball.GetComponent<Ball>().StartPosition.y) ==
@@ -35,20 +48,6 @@ public class Paddle : MonoBehaviour
             ball.transform.position = new Vector3(xClamped, ball.GetComponent<Ball>().StartPosition.y,
                 ball.GetComponent<Ball>().StartPosition.z);
         }
-
-        if (_isTimerRunning)
-        {
-            if (_timeRemaining > 0)
-            {
-                _timeRemaining -= Time.deltaTime;
-            }
-            else
-            {
-                CurrentPowerUp = "";
-                PowerUpLongPaddle();
-                PowerUpSpeedUpPaddle();
-            }
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,8 +64,8 @@ public class Paddle : MonoBehaviour
             }
             else if (other.gameObject.name.Contains("PowerUp_StickyPaddle"))
             {
+                ResetPowerUps();
                 CurrentPowerUp = "PowerUp_Sticky-Paddle";
-                _timeRemaining = 0;
             }
 
             Destroy(other.gameObject);
@@ -81,20 +80,21 @@ public class Paddle : MonoBehaviour
             return;
         }
 
-        CurrentPowerUp = "PowerUp_Longer-Paddle";
-        _timeRemaining = 0;
+        ResetPowerUps();
 
-        if (_isTimerRunning)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-            _isTimerRunning = false;
-        }
-        else
-        {
+        CurrentPowerUp = "PowerUp_Longer-Paddle";
+
+        // if (_isTimerRunning)
+        // {
+        //     transform.localScale = new Vector3(1, 1, 1);
+        //     _isTimerRunning = false;
+        // }
+        // else
+        // {
             _timeRemaining = 15;
             transform.localScale = new Vector3(1, 2, 1);
             _isTimerRunning = true;
-        }
+        // }
     }
 
     private void PowerUpSpeedUpPaddle()
@@ -105,19 +105,29 @@ public class Paddle : MonoBehaviour
             return;
         }
 
-        CurrentPowerUp = "PowerUp_Speed-Up-Paddle";
-        _timeRemaining = 0;
+        ResetPowerUps();
 
-        if (_isTimerRunning)
-        {
-            speed = 5;
-            _isTimerRunning = false;
-        }
-        else
-        {
+        CurrentPowerUp = "PowerUp_Speed-Up-Paddle";
+
+        // if (_isTimerRunning)
+        // {
+        //     speed = 5;
+        //     _isTimerRunning = false;
+        // }
+        // else
+        // {
             _timeRemaining = 15;
             speed = 10;
             _isTimerRunning = true;
-        }
+        // }
+    }
+
+    private void ResetPowerUps()
+    {
+        CurrentPowerUp = "";
+        transform.localScale = new Vector3(1, 1, 1);
+        speed = 5;
+        _isTimerRunning = false;
+        _timeRemaining = 0;
     }
 }
